@@ -11,8 +11,8 @@ python main.py -i 7 -d cifar224
     - 0 is joint linear probe
     - 1 is joint full fine tuning
     - 2 is NCM, no PETL
-    - 3 is RANPAC without RP or PETL
-    - 4 is RanPAC PETL
+    - 3 is RANPAC without RP and without PETL
+    - 4 is RanPAC without PETL
     - 5 is NCM with PETL
     - 6 is RANPAC without RP
     - 7 is RanPAC
