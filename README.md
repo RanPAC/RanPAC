@@ -2,9 +2,9 @@
 
 ## Official code repository for NeurIPS 2023 Accepted Paper:
 
-Mark D. McDonnell, Dong Gong, Amin Parveneh, Ehsan Abbasnejad, Anton van den Hengel, "RanPAC: Random Projections and Pre-trained Models for Continual Learning" 2023
+Mark D. McDonnell, Dong Gong, Amin Parveneh, Ehsan Abbasnejad, Anton van den Hengel (2023). "RanPAC: Random Projections and Pre-trained Models for Continual Learning." Available at <https://arxiv.org/abs/2307.02251>.
 
-Available at <https://arxiv.org/abs/2307.02251>
+Contact: <mark.mcdonnell@adelaide.edu.au>
 
 
 ### To reproduce results run code of the form
