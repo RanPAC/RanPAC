@@ -23,7 +23,7 @@ python main.py -i 7 -d cifar224
     - 7 is RanPAC
 
 - for -d choose from 'cifar224', 'imageneta', 'imagenetr', 'cub', 'omnibenchmark', 'vtab', 'cars', 'core50', 'cddb', 'domainnet'
-- except for cifar224, data will need to be downloaded at moved to relative paths at "../../Data/dataset_name/train/" and "../../Data/dataset_name/test/" -- see data.py
+- except for cifar224, data will need to be downloaded and moved to relative paths at "../../Data/dataset_name/train/" and "../../Data/dataset_name/test/" -- see data.py
 
 ## Acknowlegment
 This repo is based on aspects of https://github.com/zhoudw-zdw/RevisitingCIL
