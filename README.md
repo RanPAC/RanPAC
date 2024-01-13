@@ -6,10 +6,24 @@ Mark D. McDonnell, Dong Gong, Amin Parveneh, Ehsan Abbasnejad, Anton van den Hen
 
 Contact: <mark.mcdonnell@adelaide.edu.au>
 
+## Environment
 
-### To reproduce results run code of the form
+This repository is tested in an Anaconda environment. To reproduce exactly, create your environment as follows:
 
+```
+conda create -y -n RANPAC python=3.9
+conda activate RANPAC
+conda install -y pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
+conda install -y -c anaconda pandas==1.5.2
+pip install tqdm==4.65.0 
+pip install timm==0.6.12
+```
+
+## To reproduce results run code of the form
+
+```
 python main.py -i 7 -d cifar224
+```
 
 - for -i choose an integer between 0 and 16 inclusive
 
@@ -65,7 +79,7 @@ Five of the datasets tested on are specific splits and/or subsets of the full or
 - All remaining datasets use standard train and test splits as described in McDonnell et al.
 
 
-## Acknowlegment
+## Acknowledgment
 This repo is based on aspects of https://github.com/zhoudw-zdw/RevisitingCIL
 
 The implemenations of parameter-efficient tuning methods are based on [VPT](https://github.com/sagizty/VPT), [AdaptFormer](https://github.com/ShoufaChen/AdaptFormer), and [SSF](https://github.com/dongzelian/SSF).
