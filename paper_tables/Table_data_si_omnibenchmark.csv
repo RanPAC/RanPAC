@@ -1,0 +1,11 @@
+,omnibenchmark
+"ResNet50, Phase 2",68.0
+"ResNet50, No RPs",60.2
+"ResNet50, NCM only",57.4
+"ResNet152, Phase 2",65.8
+"ResNet152, No RPs",58.0
+"ResNet152, NCM only",56.1
+"CLIP, Phase 2",75.1
+"CLIP, No RPs",66.3
+"CLIP, NCM only",67.8
+runtime,1614.490133523941

@@ -1,0 +1,10 @@
+,imageneta
+Joint linear probe,56.6
+Algorithm 1,62.4
+No RPs,57.7
+No Phase 1,58.2
+No RPs or Phase 1,54.4
+NCM with Phase 1,49.7
+NCM only,49.3
+Joint full fine-tuning,70.8
+runtime,1633.5448698997498

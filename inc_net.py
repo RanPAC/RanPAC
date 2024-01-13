@@ -52,25 +52,18 @@ def get_convnet(args, pretrained=False):
 
     name = args["convnet_type"].lower()
     #Resnet
-    if name=="pretrained_resnet18":
-        from convs.resnet import resnet18, resnet34, resnet50, resnet101, resnet152
-        model=resnet18(pretrained=False,args=args)
-        model.load_state_dict(torch.load("./pretrained_models/resnet18-f37072fd.pth"),strict=False)
-        return model.eval()
-    elif name=="pretrained_resnet50":
-        from convs.resnet import resnet18, resnet34, resnet50, resnet101, resnet152
-        model=resnet50(pretrained=False,args=args)
-        model.load_state_dict(torch.load("./pretrained_models/resnet50-11ad3fa6.pth"),strict=False)
-        return model.eval()
-    elif name=="pretrained_resnet101":
-        from convs.resnet import resnet18, resnet34, resnet50, resnet101, resnet152
-        model=resnet101(pretrained=False,args=args)
-        model.load_state_dict(torch.load("./pretrained_models/resnet101-cd907fc2.pth"),strict=False)
+    if name=="pretrained_resnet50":
+        from resnet import resnet50
+        model=resnet50(pretrained=True,args=args)
         return model.eval()
     elif name=="pretrained_resnet152":
-        from convs.resnet import resnet18, resnet34, resnet50, resnet101, resnet152
-        model=resnet152(pretrained=False,args=args)
-        model.load_state_dict(torch.load("./pretrained_models/resnet152-f82ba261.pth"),strict=False)
+        from resnet import resnet152
+        model=resnet152(pretrained=True,args=args)
+        return model.eval()
+    elif name=="vit_base_patch32_224_clip_laion2b":
+        #note: even though this is "B/32" it has nearly the same num params as the standard ViT-B/16
+        model=timm.create_model("vit_base_patch32_224_clip_laion2b", pretrained=True, num_classes=0)
+        model.out_dim=768
         return model.eval()
     
     #NCM or NCM w/ Finetune
@@ -106,7 +99,7 @@ def get_convnet(args, pretrained=False):
             elif name=="pretrained_vit_b16_224_in21k_vpt":
                 basicmodelname="vit_base_patch16_224_in21k"
             
-            print("modelname,",name,"basicmodelname",basicmodelname)
+            #print("modelname,",name,"basicmodelname",basicmodelname)
             VPT_type="Deep"
             #if args["vpt_type"]=='shallow':
             #    VPT_type="Shallow"
@@ -158,11 +151,7 @@ def get_convnet(args, pretrained=False):
 class BaseNet(nn.Module):
     def __init__(self, args, pretrained):
         super(BaseNet, self).__init__()
-
-
-        print('This is for the BaseNet initialization.')
         self.convnet = get_convnet(args, pretrained)
-        print('After BaseNet initialization.')
         self.fc = None
 
     @property

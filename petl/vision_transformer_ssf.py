@@ -434,7 +434,7 @@ class VisionTransformer(nn.Module):
         assert global_pool in ('', 'avg', 'token')
         assert class_token or global_pool != 'token'
 
-        print('Using Pre-trained ViT with Scale & Shift.')
+        #print('Using Pre-trained ViT with Scale & Shift.')
         use_fc_norm = global_pool == 'avg' if fc_norm is None else fc_norm
         norm_layer = norm_layer or partial(nn.LayerNorm, eps=1e-6)
         act_layer = act_layer or nn.GELU

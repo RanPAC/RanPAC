@@ -1,0 +1,10 @@
+,imagenetr
+Joint linear probe,72.0
+Algorithm 1,77.9
+No RPs,73.9
+No Phase 1,71.8
+No RPs or Phase 1,67.6
+NCM with Phase 1,70.1
+NCM only,61.2
+Joint full fine-tuning,86.6
+runtime,5367.03497838974

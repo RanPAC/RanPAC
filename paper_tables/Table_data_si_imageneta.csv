@@ -1,0 +1,11 @@
+,imageneta
+"ResNet50, Phase 2",35.5
+"ResNet50, No RPs",36.6
+"ResNet50, NCM only",25.8
+"ResNet152, Phase 2",40.9
+"ResNet152, No RPs",39.9
+"ResNet152, NCM only",32.1
+"CLIP, Phase 2",39.7
+"CLIP, No RPs",36.8
+"CLIP, NCM only",32.5
+runtime,558.7636117935181

@@ -1,0 +1,10 @@
+,cub
+Joint linear probe,88.7
+Algorithm 1,90.3
+No RPs,86.6
+No Phase 1,88.7
+No RPs or Phase 1,86.8
+NCM with Phase 1,85.4
+NCM only,85.1
+Joint full fine-tuning,90.5
+runtime,2254.975659608841

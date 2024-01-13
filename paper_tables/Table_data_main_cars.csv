@@ -1,0 +1,10 @@
+,cars
+Joint linear probe,51.7
+Algorithm 1,77.5
+No RPs,73.0
+No Phase 1,66.0
+No RPs or Phase 1,62.2
+NCM with Phase 1,40.5
+NCM only,37.7
+Joint full fine-tuning,86.9
+runtime,2953.8470940589905

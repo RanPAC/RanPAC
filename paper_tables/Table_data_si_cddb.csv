@@ -1,0 +1,11 @@
+,cddb
+"ResNet50, Phase 2",75.9
+"ResNet50, No RPs",75.6
+"ResNet50, NCM only",65.1
+"ResNet152, Phase 2",71.3
+"ResNet152, No RPs",71.9
+"ResNet152, NCM only",65.6
+"CLIP, Phase 2",84.4
+"CLIP, No RPs",81.7
+"CLIP, NCM only",66.9
+runtime,498.1917350292206

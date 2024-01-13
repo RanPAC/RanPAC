@@ -1,0 +1,16 @@
+ID,dataset,shuffle,init_cls,increment,model_name,convnet_type,device,seed,batch_size,tuned_epoch,body_lr,head_lr,weight_decay,min_lr,use_RP,M,use_input_norm
+2,cddb,True,2,2,ncm,pretrained_vit_b16_224_in21k,0,1993,128,0,0.0,0.0,0.0005,0.0,False,-1,False
+3,cddb,True,2,2,ncm,pretrained_vit_b16_224_in21k,0,1993,128,0,0.0,0.0,0.0005,0.0,True,0,False
+4,cddb,True,2,2,ncm,pretrained_vit_b16_224_in21k,0,1993,128,0,0.0,0.0,0.0005,0.0,True,5000,False
+5,cddb,True,2,2,adapter,pretrained_vit_b16_224_in21k_adapter,0,1993,48,20,0.01,0.01,0.0005,0.0,False,-1,False
+6,cddb,True,2,2,adapter,pretrained_vit_b16_224_in21k_adapter,0,1993,48,20,0.01,0.01,0.0005,0.0,True,0,False
+7,cddb,True,2,2,adapter,pretrained_vit_b16_224_in21k_adapter,0,1993,48,20,0.01,0.01,0.0005,0.0,True,5000,False
+8,cddb,True,2,2,ncm,pretrained_resnet50,0,1993,128,0,0.0,0.0,0.0005,0.0,False,-1,True
+9,cddb,True,2,2,ncm,pretrained_resnet50,0,1993,128,0,0.0,0.0,0.0005,0.0,True,0,True
+10,cddb,True,2,2,ncm,pretrained_resnet50,0,1993,128,0,0.0,0.0,0.0005,0.0,True,5000,True
+11,cddb,True,2,2,ncm,pretrained_resnet152,0,1993,128,0,0.0,0.0,0.0005,0.0,False,-1,True
+12,cddb,True,2,2,ncm,pretrained_resnet152,0,1993,128,0,0.0,0.0,0.0005,0.0,True,0,True
+13,cddb,True,2,2,ncm,pretrained_resnet152,0,1993,128,0,0.0,0.0,0.0005,0.0,True,5000,True
+14,cddb,True,2,2,ncm,vit_base_patch32_224_clip_laion2b,0,1993,128,0,0.0,0.0,0.0005,0.0,False,-1,True
+15,cddb,True,2,2,ncm,vit_base_patch32_224_clip_laion2b,0,1993,128,0,0.0,0.0,0.0005,0.0,True,0,True
+16,cddb,True,2,2,ncm,vit_base_patch32_224_clip_laion2b,0,1993,128,0,0.0,0.0,0.0005,0.0,True,5000,True

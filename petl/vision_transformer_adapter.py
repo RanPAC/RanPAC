@@ -196,7 +196,7 @@ class VisionTransformer(nn.Module):
         super().__init__()
 
 
-        print("I'm using ViT with adapters.")
+        #print("I'm using ViT with adapters.")
         self.tuning_config = tuning_config
         self.num_classes = num_classes
         self.num_features = self.embed_dim = embed_dim  # num_features for consistency with other models
@@ -445,7 +445,7 @@ def vit_base_patch16_224_in21k_adapter(pretrained=False, **kwargs):
             state_dict[key.replace('mlp.', '')] = fc_weight
 
     msg = model.load_state_dict(state_dict, strict=False)
-    print(msg)
+    #print(msg)
 
     # s=model.state_dict()
     # # print the keys in s

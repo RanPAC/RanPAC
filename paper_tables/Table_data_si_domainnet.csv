@@ -1,0 +1,11 @@
+,domainnet
+"ResNet50, Phase 2",52.6
+"ResNet50, No RPs",41.9
+"ResNet50, NCM only",32.9
+"ResNet152, Phase 2",53.8
+"ResNet152, No RPs",42.9
+"ResNet152, NCM only",35.1
+"CLIP, Phase 2",68.7
+"CLIP, No RPs",59.1
+"CLIP, NCM only",51.0
+runtime,11358.376994609833

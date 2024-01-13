@@ -13,10 +13,13 @@ from RanPAC import Learner
 def train(args):
     seed_list = copy.deepcopy(args["seed"])
     device = copy.deepcopy(args["device"])
+    ave_accs=[]
     for seed in seed_list:
         args["seed"] = seed
         args["device"] = device
-        _train(args)
+        ave_acc=_train(args)
+        ave_accs.append(ave_acc)
+    return ave_accs
 
 
 def _train(args):
@@ -43,6 +46,7 @@ def _train(args):
         ],
     )
 
+    logging.info('Starting new run')
     _set_random()
     _set_device(args)
     print_args(args)
@@ -74,11 +78,13 @@ def _train(args):
             args["seed"],
             args["init_cls"],
             args["increment"],
+            use_input_norm=args["use_input_norm"]
         )
         num_tasks=data_manager.nb_tasks
 
     acc_curve = {"top1_total": [],"ave_acc": []}
     classes_df=None
+    logging.info("Pre-trained network parameters: {}".format(count_parameters(model._network)))
     for task in range(num_tasks):
         if model.is_dil:
             #reset the data manager to the next domain
@@ -88,6 +94,7 @@ def _train(args):
                 args["seed"],
                 args["init_cls"],
                 args["increment"],
+                use_input_norm=args["use_input_norm"]
             )
             model._cur_task=-1
             model._known_classes = 0
@@ -95,7 +102,6 @@ def _train(args):
         if classes_df is None:
             classes_df=pd.DataFrame()
             classes_df['init']=-1*np.ones(data_manager._test_data.shape[0])
-        logging.info("Pre-trained network params: {}".format(count_parameters(model._network)))
         model.incremental_train(data_manager)
         acc_total,acc_grouped,predicted_classes,true_classes = model.eval_task()
         col1='pred_task_'+str(task)
@@ -108,12 +114,15 @@ def _train(args):
         logging.info("Group Accuracies: {}".format(acc_grouped))
 
         acc_curve["top1_total"].append(acc_total)
-        acc_curve["ave_acc"].append(np.round(np.mean(list(acc_grouped.values())),2))
+        acc_curve["ave_acc"].append(np.round(np.mean(list(acc_grouped.values())),1))
         if args['do_not_save']==False:
             save_results(args,acc_curve["top1_total"],acc_curve["ave_acc"],model,classes_df)
 
         logging.info("Top1 curve: {}".format(acc_curve["top1_total"]))
         logging.info("Ave Acc curve: {}".format(acc_curve["ave_acc"]))
+    logging.info('Finishing run')
+    logging.info('')
+    return acc_curve["ave_acc"]
 
 def save_results(args,top1_total,ave_acc,model,classes_df):
     if not os.path.exists('./results/'):

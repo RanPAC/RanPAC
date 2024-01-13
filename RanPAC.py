@@ -113,7 +113,7 @@ class Learner(BaseLearner):
         
         Y=target2onehot(label_list,self.total_classnum)
         if self.args['use_RP']:
-            print('Number of pre-trained feature dimensions = ',Features_f.shape[-1])
+            #print('Number of pre-trained feature dimensions = ',Features_f.shape[-1])
             if self.args['M']>0:
                 Features_h=torch.nn.functional.relu(Features_f@ self._network.fc.W_rand.cpu())
             else:
@@ -145,7 +145,7 @@ class Learner(BaseLearner):
             Y_train_pred=Features[num_val_samples::,:]@Wo.T
             losses.append(F.mse_loss(Y_train_pred,Y[num_val_samples::,:]))
         ridge=ridges[np.argmin(np.array(losses))]
-        print('selected lambda = ',ridge)
+        logging.info("Optimal lambda: "+str(ridge))
         return ridge
     
     def incremental_train(self, data_manager):
@@ -157,7 +157,9 @@ class Learner(BaseLearner):
             del self._network.fc
             self._network.fc=None
         self._network.update_fc(self._classes_seen_so_far) #creates a new head with a new number of classes (if CIL)
-        logging.info("Learning on {}-{}".format(self._known_classes, self._classes_seen_so_far))
+        if self.is_dil == False:
+            logging.info("Starting CIL Task {}".format(self._cur_task+1))
+        logging.info("Learning on classes {}-{}".format(self._known_classes, self._classes_seen_so_far))
         self.train_dataset = data_manager.get_dataset(np.arange(self._known_classes, self._classes_seen_so_far),source="train", mode="train", )
         self.train_loader = DataLoader(self.train_dataset, batch_size=self._batch_size, shuffle=True, num_workers=num_workers)
         train_dataset_for_CPs = data_manager.get_dataset(np.arange(self._known_classes, self._classes_seen_so_far),source="train", mode="test", )
@@ -181,7 +183,6 @@ class Learner(BaseLearner):
                             param.requires_grad = False
                     else:
                         param.requires_grad = False
-                print('freezing parameters finished') 
         else:
             if isinstance(self._network.convnet, nn.Module):
                 for name, param in self._network.convnet.named_parameters():
@@ -190,14 +191,13 @@ class Learner(BaseLearner):
                             param.requires_grad = False
                     else:
                         param.requires_grad = False
-                print('freezing parameters finished') 
 
     def show_num_params(self,verbose=False):
         # show total parameters and trainable parameters
         total_params = sum(p.numel() for p in self._network.parameters())
-        print(f'{total_params:,} total parameters.')
+        logging.info(f'{total_params:,} total parameters.')
         total_trainable_params = sum(p.numel() for p in self._network.parameters() if p.requires_grad)
-        print(f'{total_trainable_params:,} training parameters.')
+        logging.info(f'{total_trainable_params:,} training parameters.')
         if total_params != total_trainable_params and verbose:
             for name, param in self._network.named_parameters():
                 if param.requires_grad:
@@ -211,9 +211,11 @@ class Learner(BaseLearner):
             #this branch updates using SGD on all tasks and should be using classes and does not use a RP head
             if self.args["model_name"] =='joint_linear':
                 assert self.args['body_lr']==0.0
+            self.show_num_params()
             optimizer = optim.SGD([{'params':self._network.convnet.parameters()},{'params':self._network.fc.parameters(),'lr':self.args['head_lr']}], 
                                         momentum=0.9, lr=self.args['body_lr'],weight_decay=self.weight_decay)
             scheduler=optim.lr_scheduler.MultiStepLR(optimizer,milestones=[100000])
+            logging.info("Starting joint training on all data using "+self.args["model_name"]+" method")
             self._init_train(train_loader, test_loader, optimizer, scheduler)
             self.show_num_params()
         else:
@@ -227,6 +229,7 @@ class Learner(BaseLearner):
                     optimizer = optim.SGD(self._network.parameters(), momentum=0.9, lr=self.args['body_lr'],weight_decay=self.weight_decay)
                     scheduler=optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.args['tuned_epoch'], eta_min=self.min_lr)
                     #train the PETL method for the first task:
+                    logging.info("Starting PETL training on first task using "+self.args["model_name"]+" method")
                     self._init_train(train_loader, test_loader, optimizer, scheduler)
                     self.freeze_backbone()
                 if self.args['use_RP'] and self.dil_init==False:

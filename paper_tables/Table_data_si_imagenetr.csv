@@ -1,0 +1,11 @@
+,imagenetr
+"ResNet50, Phase 2",56.5
+"ResNet50, No RPs",54.8
+"ResNet50, NCM only",43.1
+"ResNet152, Phase 2",58.7
+"ResNet152, No RPs",56.9
+"ResNet152, NCM only",47.5
+"CLIP, Phase 2",76.1
+"CLIP, No RPs",67.0
+"CLIP, NCM only",68.0
+runtime,890.6395783424377

@@ -1,0 +1,10 @@
+,cifar224
+Joint linear probe,87.9
+Algorithm 1,92.2
+No RPs,90.6
+No Phase 1,89.0
+No RPs or Phase 1,87.0
+NCM with Phase 1,87.8
+NCM only,83.4
+Joint full fine-tuning,93.8
+runtime,9780.999018907547

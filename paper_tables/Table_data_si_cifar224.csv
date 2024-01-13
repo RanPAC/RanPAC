@@ -1,0 +1,11 @@
+,cifar224
+"ResNet50, Phase 2",75.5
+"ResNet50, No RPs",73.3
+"ResNet50, NCM only",61.5
+"ResNet152, Phase 2",79.7
+"ResNet152, No RPs",77.8
+"ResNet152, NCM only",70.1
+"CLIP, Phase 2",85.0
+"CLIP, No RPs",80.9
+"CLIP, NCM only",77.1
+runtime,1146.6507444381714

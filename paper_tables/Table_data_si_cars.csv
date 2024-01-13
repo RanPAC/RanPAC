@@ -1,0 +1,11 @@
+,cars
+"ResNet50, Phase 2",48.5
+"ResNet50, No RPs",42.6
+"ResNet50, NCM only",26.3
+"ResNet152, Phase 2",45.1
+"ResNet152, No RPs",38.8
+"ResNet152, NCM only",25.2
+"CLIP, Phase 2",90.4
+"CLIP, No RPs",85.8
+"CLIP, NCM only",85.6
+runtime,1108.2027869224548

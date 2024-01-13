@@ -1,0 +1,11 @@
+,vtab
+"ResNet50, Phase 2",88.6
+"ResNet50, No RPs",87.7
+"ResNet50, NCM only",82.2
+"ResNet152, Phase 2",90.0
+"ResNet152, No RPs",87.9
+"ResNet152, NCM only",82.6
+"CLIP, Phase 2",89.6
+"CLIP, No RPs",89.8
+"CLIP, NCM only",79.4
+runtime,385.41727113723755

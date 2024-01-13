@@ -1,0 +1,11 @@
+,cub
+"ResNet50, Phase 2",70.9
+"ResNet50, No RPs",62.7
+"ResNet50, NCM only",55.4
+"ResNet152, Phase 2",66.7
+"ResNet152, No RPs",59.4
+"ResNet152, NCM only",50.6
+"CLIP, Phase 2",79.4
+"CLIP, No RPs",72.8
+"CLIP, NCM only",73.7
+runtime,629.8902971744537
