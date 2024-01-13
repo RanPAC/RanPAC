@@ -36,7 +36,7 @@ python main.py -i 7 -d cifar224
         - 16 is RanPAC Phase 2
 
 - for -d choose from 'cifar224', 'imageneta', 'imagenetr', 'cub', 'omnibenchmark', 'vtab', 'cars', 'core50', 'cddb', 'domainnet'
-- except for cifar224, data will need to be downloaded and moved to relative paths at "../../Data/dataset_name/train/" and "../../Data/dataset_name/test/" -- see data.py
+- except for cifar224, data will need to be downloaded and moved to relative paths at "./data/dataset_name/train/" and "./data/dataset_name/test/" -- see data.py
 
 ### Note on reproducibility
 
