@@ -1,10 +1,10 @@
 ,vtab
-Joint linear probe,87.8
-Algorithm 1,
-No RPs,
-No Phase 1,
-No RPs or Phase 1,
-NCM with Phase 1,
-NCM only,
-Joint full fine-tuning,
-runtime,426.1092619895935
+Joint linear probe,86.7
+Algorithm 1,92.2
+No RPs,90.0
+No Phase 1,92.2
+No RPs or Phase 1,91.9
+NCM with Phase 1,88.2
+NCM only,88.4
+Joint full fine-tuning,92.0
+runtime,1465.551527261734
