@@ -178,15 +178,14 @@ class BaseNet(nn.Module):
 class ResNetCosineIncrementalNet(BaseNet):
     def __init__(self, args, pretrained):
         super().__init__(args, pretrained)
-        self._feature_dim=self.feature_dim
 
     def update_fc(self, nb_classes):
-        fc = CosineLinear(self._feature_dim, nb_classes).cuda()
+        fc = CosineLinear(self.feature_dim, nb_classes).cuda()
         if self.fc is not None:
             nb_output = self.fc.out_features
             weight = copy.deepcopy(self.fc.weight.data)
             fc.sigma.data = self.fc.sigma.data
-            weight = torch.cat([weight, torch.zeros(nb_classes - nb_output, self._feature_dim).cuda()])
+            weight = torch.cat([weight, torch.zeros(nb_classes - nb_output, self.feature_dim).cuda()])
             fc.weight = nn.Parameter(weight)
         del self.fc
         self.fc = fc
@@ -194,15 +193,14 @@ class ResNetCosineIncrementalNet(BaseNet):
 class SimpleVitNet(BaseNet):
     def __init__(self, args, pretrained):
         super().__init__(args, pretrained)
-        self._feature_dim=self.feature_dim
 
     def update_fc(self, nb_classes):
-        fc = CosineLinear(self._feature_dim, nb_classes).cuda()
+        fc = CosineLinear(self.feature_dim, nb_classes).cuda()
         if self.fc is not None:
             nb_output = self.fc.out_features
             weight = copy.deepcopy(self.fc.weight.data)
             fc.sigma.data = self.fc.sigma.data
-            weight = torch.cat([weight, torch.zeros(nb_classes - nb_output, self._feature_dim).cuda()])
+            weight = torch.cat([weight, torch.zeros(nb_classes - nb_output, self.feature_dim).cuda()])
             fc.weight = nn.Parameter(weight)
         del self.fc
         self.fc = fc

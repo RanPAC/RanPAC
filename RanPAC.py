@@ -20,6 +20,7 @@ class BaseLearner(object):
         self._cur_task = -1
         self._known_classes = 0
         self._classes_seen_so_far = 0
+        self.class_increments=[]
         self._network = None
 
         self._device = args["device"][0]
@@ -43,7 +44,7 @@ class BaseLearner(object):
     
     def _evaluate(self, y_pred, y_true):
         ret = {}
-        acc_total,grouped = accuracy(y_pred.T[0], y_true, self._known_classes,self.args['increment'])
+        acc_total,grouped = accuracy(y_pred.T[0], y_true, self._known_classes,self.class_increments)
         return acc_total,grouped 
     
     def _compute_accuracy(self, model, loader):
@@ -159,7 +160,8 @@ class Learner(BaseLearner):
         self._network.update_fc(self._classes_seen_so_far) #creates a new head with a new number of classes (if CIL)
         if self.is_dil == False:
             logging.info("Starting CIL Task {}".format(self._cur_task+1))
-        logging.info("Learning on classes {}-{}".format(self._known_classes, self._classes_seen_so_far))
+        logging.info("Learning on classes {}-{}".format(self._known_classes, self._classes_seen_so_far-1))
+        self.class_increments.append([self._known_classes, self._classes_seen_so_far-1])
         self.train_dataset = data_manager.get_dataset(np.arange(self._known_classes, self._classes_seen_so_far),source="train", mode="train", )
         self.train_loader = DataLoader(self.train_dataset, batch_size=self._batch_size, shuffle=True, num_workers=num_workers)
         train_dataset_for_CPs = data_manager.get_dataset(np.arange(self._known_classes, self._classes_seen_so_far),source="train", mode="test", )
@@ -248,7 +250,6 @@ class Learner(BaseLearner):
             #RP with M > 0
             M=self.args['M']
             self._network.fc.weight = nn.Parameter(torch.Tensor(self._network.fc.out_features, M).to(device='cuda')) #num classes in task x M
-            self._network._feature_dim=M
             self._network.fc.reset_parameters()
             self._network.fc.W_rand=torch.randn(self._network.fc.in_features,M).to(device='cuda')
             self.W_rand=copy.deepcopy(self._network.fc.W_rand) #make a copy that gets passed each time the head is replaced

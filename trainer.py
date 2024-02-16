@@ -85,6 +85,7 @@ def _train(args):
     acc_curve = {"top1_total": [],"ave_acc": []}
     classes_df=None
     logging.info("Pre-trained network parameters: {}".format(count_parameters(model._network)))
+    cnn_matrix=[]
     for task in range(num_tasks):
         if model.is_dil:
             #reset the data manager to the next domain
@@ -110,16 +111,16 @@ def _train(args):
             classes_df[col1]=np.pad(predicted_classes,(0,data_manager._test_data.shape[0]-len(predicted_classes)),'constant',constant_values=(-1,-1))
             classes_df[col2]=np.pad(true_classes,(0,data_manager._test_data.shape[0]-len(predicted_classes)),'constant',constant_values=(-1,-1))
         model.after_task()
-
-        logging.info("Group Accuracies: {}".format(acc_grouped))
-
+        
         acc_curve["top1_total"].append(acc_total)
-        acc_curve["ave_acc"].append(np.round(np.mean(list(acc_grouped.values())),1))
+        acc_curve["ave_acc"].append(np.round(np.mean(list(acc_grouped.values())),2))
         if args['do_not_save']==False:
             save_results(args,acc_curve["top1_total"],acc_curve["ave_acc"],model,classes_df)
 
-        logging.info("Top1 curve: {}".format(acc_curve["top1_total"]))
+        logging.info("Group Accuracies after this task: {}".format(acc_grouped))
         logging.info("Ave Acc curve: {}".format(acc_curve["ave_acc"]))
+        logging.info("Top1 curve: {}".format(acc_curve["top1_total"]))
+        
     logging.info('Finishing run')
     logging.info('')
     return acc_curve["ave_acc"]

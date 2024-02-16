@@ -14,7 +14,7 @@ def target2onehot(targets, n_classes):
     onehot.scatter_(dim=1, index=targets.long().view(-1, 1), value=1.0)
     return onehot
 
-def accuracy(y_pred, y_true, nb_old, increment=10):
+def accuracy(y_pred, y_true, nb_old, class_increments):
     assert len(y_pred) == len(y_true), "Data length error."
     all_acc = {}
     acc_total = np.around(
@@ -22,12 +22,12 @@ def accuracy(y_pred, y_true, nb_old, increment=10):
     )
 
     # Grouped accuracy
-    for class_id in range(0, np.max(y_true), increment):
+    for classes in class_increments:
         idxes = np.where(
-            np.logical_and(y_true >= class_id, y_true < class_id + increment)
+            np.logical_and(y_true >= classes[0], y_true <= classes[1])
         )[0]
         label = "{}-{}".format(
-            str(class_id).rjust(2, "0"), str(class_id + increment - 1).rjust(2, "0")
+            str(classes[0]).rjust(2, "0"), str(classes[1]).rjust(2, "0")
         )
         all_acc[label] = np.around(
             (y_pred[idxes] == y_true[idxes]).sum() * 100 / len(idxes), decimals=2
