@@ -119,9 +119,9 @@ class Learner(BaseLearner):
                 Features_h=torch.nn.functional.relu(Features_f@ self._network.fc.W_rand.cpu())
             else:
                 Features_h=Features_f
+            ridge=self.optimise_ridge_parameter(Features_h,Y)
             self.Q=self.Q+Features_h.T @ Y 
             self.G=self.G+Features_h.T @ Features_h
-            ridge=self.optimise_ridge_parameter(Features_h,Y)
             Wo=torch.linalg.solve(self.G+ridge*torch.eye(self.G.size(dim=0)),self.Q).T #better nmerical stability than .inv
             self._network.fc.weight.data=Wo[0:self._network.fc.weight.shape[0],:].to(device='cuda')
         else:
@@ -139,8 +139,8 @@ class Learner(BaseLearner):
         ridges=10.0**np.arange(-8,9)
         num_val_samples=int(Features.shape[0]*0.8)
         losses=[]
-        Q_val=Features[0:num_val_samples,:].T @ Y[0:num_val_samples,:]
-        G_val=Features[0:num_val_samples,:].T @ Features[0:num_val_samples,:]
+        Q_val=self.Q+Features[0:num_val_samples,:].T @ Y[0:num_val_samples,:]
+        G_val=self.G+Features[0:num_val_samples,:].T @ Features[0:num_val_samples,:]
         for ridge in ridges:
             Wo=torch.linalg.solve(G_val+ridge*torch.eye(G_val.size(dim=0)),Q_val).T #better nmerical stability than .inv
             Y_train_pred=Features[num_val_samples::,:]@Wo.T
